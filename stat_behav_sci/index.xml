@@ -35,7 +35,7 @@ fig0104t &amp;lt;- xtable(fig0104, digits = c(0, 0, 0, 1),
                    align = rep(&amp;quot;c&amp;quot;, ncol(fig0104) + 1))
 print(fig0104t, include.rownames = FALSE, type = &amp;#39;html&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;!-- html table generated in R 3.3.3 by xtable 1.8-2 package --&gt;
-&lt;!-- Mon Mar 13 10:23:26 2017 --&gt;
+&lt;!-- Mon Mar 13 13:38:01 2017 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
