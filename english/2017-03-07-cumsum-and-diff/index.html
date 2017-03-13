@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.18.1" />
+
+
+
+
+<title>R functions cumsum(x) and diff(x) - Likan | 侃侃迩行</title>
+
+
+<meta property="og:title" content="R functions cumsum(x) and diff(x) - Likan | 侃侃迩行">
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css' rel='stylesheet' type='text/css'>
+
+
+
+<link rel="stylesheet" href="../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../css/main.css" media="all">
+
+<link rel="stylesheet" href="../../css/custom.css">
+
+<script async src="https://use.fontawesome.com/32c3d13def.js"></script>
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../" class="nav-logo">
+    <img src="../../logo/bodhi.png"
+         width="100"
+         height="100"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    
+    
+    <li class=""><a href="../../about/about"> About </a></li>
+    
+    <li class=""><a href="../../teachings/"> Teaching </a></li>
+    
+    <li class=""><a href="../../english/"> Blog </a></li>
+    
+    <li class=""><a href="../../chinese/"> 博客 </a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">R functions cumsum(x) and diff(x)
+
+</h1>
+
+
+<div class="article-date">
+  <span> Likan Zhan ·    2017-03-07 </span>
+  <span class="article-toolbar">
+    
+    <a href="../../english/index.xml" type="application/rss+xml" target="_blank"><i class="fa fa-rss" aria-hidden="true" title="RSS feed"></i></a>
+    
+    <a href="https://twitter.com/home?status=R&#43;functions&#43;cumsum%28x%29&#43;and&#43;diff%28x%29&#43;https%3A%2F%2Flikanzhan.github.io%2Fenglish%2F2017-03-07-cumsum-and-diff%2F&#43;via&#43;%40likanzhan" target="_blank"><i class="fa fa-twitter" aria-hidden="true" title="Share via Twitter"></i></a>
+    <a href="http://service.weibo.com/share/share.php?content=utf-8&amp;title=R&#43;functions&#43;cumsum%28x%29&#43;and&#43;diff%28x%29&#43;%40zhanlikan&amp;url=https%3A%2F%2Flikanzhan.github.io%2Fenglish%2F2017-03-07-cumsum-and-diff%2F" target="_blank"><i class="fa fa-weibo" aria-hidden="true" title="分享到新浪微博"></i></a>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><i class="fa fa-cc" aria-hidden="true" title="Attribution-NonCommercial-ShareAlike 4.0 International"></i></a>
+    </span>
+</div>
+
+
+    
+    <div class="article-content">
+      <!-- BLOGDOWN-HEAD -->
+<!-- /BLOGDOWN-HEAD -->
+
+<!-- BLOGDOWN-BODY-BEFORE -->
+<!-- /BLOGDOWN-BODY-BEFORE -->
+<p>Addapted from RHertel’ <a href="http://stackoverflow.com/questions/32009610/cumsum-the-opposite-of-diff-in-r">Stackoverflow</a> post.</p>
+<p><code>diff(x)</code> returns a vector of length <code>(length(x)-1)</code> which contains the difference between one element and the next in a vector x.</p>
+<p><code>cumsum(x)</code> returns a vector of length equal to the length of x containing the sum of the elements in x</p>
+<pre class="r"><code>x &lt;- c(1:10)
+diff(x)
+cumsum(x)</code></pre>
+<pre><code>## [1] 1 1 1 1 1 1 1 1 1
+##  [1]  1  3  6 10 15 21 28 36 45 55</code></pre>
+<p>The combination of <code>cumsum</code> and <code>diff</code> leads to different results, depending on the order in which the functions are executed:</p>
+<pre class="r"><code>cumsum(diff(x))
+diff(cumsum(x))</code></pre>
+<pre><code>## [1] 1 2 3 4 5 6 7 8 9
+## [1]  2  3  4  5  6  7  8  9 10</code></pre>
+
+    </div>
+    
+<nav id="article-nav">
+    
+    <a href="../../english/2017-03-07-rank-order/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Rank-Order</div>
+    </a>
+    
+
+    
+    <a href="../../english/2017-03-07-order-a-data-frame-by-columns/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title">Order a data frame by columns <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></div>
+    </a>
+    
+</nav>
+<script type="text/javascript">
+document.addEventListener('keyup', function(e) {
+  if (e.target.nodeName.toUpperCase() != 'BODY') return;
+  var url = false;
+  if (e.which == 37) {  
+    
+    url = '\/english\/2017-03-07-rank-order\/';
+    
+  } else if (e.which == 39) {  
+    
+    url = '\/english\/2017-03-07-order-a-data-frame-by-columns\/';
+    
+  }
+  if (url) window.location = url;
+});
+</script>
+
+
+  </article>
+
+  
+<section id="comments">
+  <div id="disqus_thread"></div>
+  <script>
+  
+  var disqus_config = function () {
+    this.page.url = "https:\/\/likanzhan.github.io" + location.pathname;
+  };
+  
+  (function() {
+   var inIFrame = function() {
+      var iframe = true;
+      try { iframe = window.self !== window.top; } catch (e) {}
+      return iframe;
+    };
+    if (inIFrame()) return;
+    var d = document, s = d.createElement('script');
+    s.src = '//https-likanzhan-github-io.disqus.com/embed.js'; s.async = true;
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          
+          
+          <li><a href="https://github.com/likanzhan"><i class="fa fa-github" aria-hidden="true" title="Github"></i><span class="sr-only">Github</span></a></li>
+          <li><a href="https://twitter.com/likanzhan"><i class="fa fa-twitter" aria-hidden="true" title="Twitter"></i><span class="sr-only">Twitter</span></a></li>
+          <li><a href="http://weibo.com/"><i class="fa fa-weibo" aria-hidden="true" title="新浪微博"></i><span class="sr-only">新浪微博</span></a></li>
+          
+
+          <li><a href="../../"><i class="fa fa-copyright" aria-hidden="true" title="Copyright"></i> 2017 - 2017</a></li>
+        </ul>
+      </footer>
+    </div>
+    
+    <script async src="../../js/center-img.js"></script>
+    
+    <script async src="../../js/right-quote.js"></script>
+    
+    <script async src="../../js/no-highlight.js"></script>
+    
+    <script async src="../../js/fix-footnote.js"></script>
+    
+    
+
+    
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'google analytics', 'auto');
+ga('send', 'pageview');
+</script>
+
+  </body>
+</html>
+

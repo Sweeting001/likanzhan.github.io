@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics for the Behavioral Sciences on Likan | 侃侃迩行</title>
+    <link>/stat_behav_sci/index.xml</link>
+    <description>Recent content in Statistics for the Behavioral Sciences on Likan | 侃侃迩行</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 Mar 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/stat_behav_sci/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Chapter 1. Introduction to Statistics</title>
+      <link>/stat_behav_sci/2017-03-08-ch01/</link>
+      <pubDate>Wed, 08 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/stat_behav_sci/2017-03-08-ch01/</guid>
+      <description>&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#wake-up-time-and-academic-performance&#34;&gt;1. Wake-up time and academic performance&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#the-sum-function-sum&#34;&gt;2. The sum function: &lt;span class=&#34;math inline&#34;&gt;\(\sum\)&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;wake-up-time-and-academic-performance&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;1. Wake-up time and academic performance&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;The data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(xtable)
+Student &amp;lt;- LETTERS[1 : 8]
+Wake_up_time &amp;lt;- c(11, 9, 9, 12, 7, 10, 10, 8)
+Academic_Performance &amp;lt;- c(2.4, 3.6, 3.2, 2.2, 3.8, 2.2, 3.0, 3.0)
+fig0104 &amp;lt;- data.frame(Student, Wake_up_time, Academic_Performance)
+fig0104t &amp;lt;- xtable(fig0104, digits = c(0, 0, 0, 1),
+                   align = rep(&amp;quot;c&amp;quot;, ncol(fig0104) + 1))
+print(fig0104t, include.rownames = FALSE, type = &amp;#39;html&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- html table generated in R 3.3.3 by xtable 1.8-2 package --&gt;
+&lt;!-- Mon Mar 13 10:23:26 2017 --&gt;
+&lt;table border=&#34;1&#34;&gt;
+&lt;tr&gt;
+&lt;th&gt;
+Student
+&lt;/th&gt;
+&lt;th&gt;
+Wake_up_time
+&lt;/th&gt;
+&lt;th&gt;
+Academic_Performance
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;
+A
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+2.4
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;
+B
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+3.6
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;
+C
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+3.2
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;
+D
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+12
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+2.2
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;
+E
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+3.8
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;
+F
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+2.2
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;
+G
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+3.0
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;
+H
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+8
+&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;
+3.0
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;Figure 1.4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(Academic_Performance ~ Wake_up_time,
+     data = fig0104,
+     xlab = &amp;quot;Wake-up time&amp;quot;, font.lab = 2,
+     ylab = &amp;quot;Academic Performance&amp;quot;,
+     col = &amp;quot;red&amp;quot;, pch = 19, cex = 1.5,
+     axes = FALSE, ylim = c(2, 4)
+     )
+axis(1, at = 6:12, tick = 6:12)
+axis(2, at = seq(1.8, 4, by = 0.2),
+     tick = seq(1.8, 4, by = 0.2))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../stat_behav_sci/2017-03-08-ch01_files/figure-html/Figure_01_04-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-sum-function-sum&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;2. The sum function: &lt;span class=&#34;math inline&#34;&gt;\(\sum\)&lt;/span&gt;&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;X &amp;lt;- c(3, 1, 7, 4)
+S1 &amp;lt;- sum(X)
+S2 &amp;lt;- sum(X^2)
+S3 &amp;lt;- (sum(X))^2
+S4 &amp;lt;- sum(X - 1)
+S5 &amp;lt;- sum((X - 1)^2)
+
+S1; S2; S3; S4; S5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 15
+## [1] 75
+## [1] 225
+## [1] 11
+## [1] 49&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

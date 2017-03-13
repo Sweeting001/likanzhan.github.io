@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Manipulation on Likan | 侃侃迩行</title>
+    <link>/tags/data-manipulation/index.xml</link>
+    <description>Recent content in Data Manipulation on Likan | 侃侃迩行</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="/tags/data-manipulation/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Grouping functions in base R</title>
+      <link>/english/2017-02-16-grouping-functions-in-base-r/</link>
+      <pubDate>Thu, 16 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/english/2017-02-16-grouping-functions-in-base-r/</guid>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#apply&#34;&gt;1. &lt;em&gt;apply&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#lapply&#34;&gt;2. &lt;em&gt;lapply&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#sapply&#34;&gt;3. &lt;em&gt;sapply&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#vapply&#34;&gt;4. &lt;em&gt;vapply&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#mapply&#34;&gt;5. &lt;em&gt;mapply&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#map&#34;&gt;6. &lt;em&gt;Map&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#rapply&#34;&gt;7. &lt;em&gt;rapply&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#tapply&#34;&gt;8. &lt;em&gt;tapply&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+&lt;p&gt;This page is addapted from the stack overflow &lt;a href=&#34;http://stackoverflow.com/questions/3505701/r-grouping-functions-sapply-vs-lapply-vs-apply-vs-tapply-vs-by-vs-aggrega&#34;&gt;post&lt;/a&gt; by &lt;em&gt;joran&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;R has many *apply functions which are ably described in the help files (e.g. ?apply). There are enough of them, though, that beginning useRs may have difficulty deciding which one is appropriate for their situation or even remembering them all. They may have a general sense that “I should be using an *apply function here”, but it can be tough to keep them all straight at first.&lt;/p&gt;
+&lt;p&gt;Despite the fact (noted in other answers) that much of the functionality of the *apply family is covered by the extremely popular plyr package, the base functions remain useful and worth knowing.&lt;/p&gt;
+&lt;p&gt;This answer is intended to act as a sort of signpost for new useRs to help direct them to the correct *apply function for their particular problem. Note, this is not intended to simply regurgitate or replace the R documentation! The hope is that this answer helps you to decide which *apply function suits your situation and then it is up to you to research it further. With one exception, performance differences will not be addressed.&lt;/p&gt;
+&lt;div id=&#34;apply&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;1. &lt;em&gt;apply&lt;/em&gt;&lt;/h1&gt;
+&lt;p&gt;When you want to apply a function to the rows or columns of a matrix (and higher-dimensional analogues); not generally advisable for data frames as it will coerce to a matrix first.&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: lower-alpha&#34;&gt;
+&lt;li&gt;Create a two dimensional matrix&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;M &amp;lt;- matrix(seq(1, 16), 4, 4)
+M&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      [,1] [,2] [,3] [,4]
+## [1,]    1    5    9   13
+## [2,]    2    6   10   14
+## [3,]    3    7   11   15
+## [4,]    4    8   12   16&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Apply &lt;em&gt;min&lt;/em&gt; to rows&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;apply(M, 1, min)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 1 2 3 4&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Apply &lt;em&gt;max&lt;/em&gt; to columns&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;apply(M, 2, max)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1]  4  8 12 16&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: lower-alpha&#34;&gt;
+&lt;li&gt;Create a three dimensional array&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;M &amp;lt;- array(seq(32), dim = c(4,4,2))
+M&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## , , 1
+## 
+##      [,1] [,2] [,3] [,4]
+## [1,]    1    5    9   13
+## [2,]    2    6   10   14
+## [3,]    3    7   11   15
+## [4,]    4    8   12   16
+## 
+## , , 2
+## 
+##      [,1] [,2] [,3] [,4]
+## [1,]   17   21   25   29
+## [2,]   18   22   26   30
+## [3,]   19   23   27   31
+## [4,]   20   24   28   32&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Apply &lt;em&gt;sum&lt;/em&gt; across each &lt;em&gt;M[*, , ]&lt;/em&gt; - i.e Sum across 2nd and 3rd dimension, and the result is one-dimensional&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;apply(M, 1, sum)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 120 128 136 144&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Apply &lt;em&gt;sum&lt;/em&gt; across each &lt;em&gt;M[*,*, ]&lt;/em&gt; - i.e Sum across 3rd dimension, and the result is two-dimensional&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;apply(M, c(1, 2), sum)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      [,1] [,2] [,3] [,4]
+## [1,]   18   26   34   42
+## [2,]   20   28   36   44
+## [3,]   22   30   38   46
+## [4,]   24   32   40   48&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Furthermore, if you want row/column means or sums for a 2D matrix, be sure to investigate the highly optimized, lightning-quick &lt;code&gt;colMeans&lt;/code&gt;, &lt;code&gt;rowMeans&lt;/code&gt;, &lt;code&gt;colSums&lt;/code&gt;, &lt;code&gt;rowSums&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;lapply&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;2. &lt;em&gt;lapply&lt;/em&gt;&lt;/h1&gt;
+&lt;p&gt;Use this function when you want to apply a function to each element of a list in turn and get a list back.&lt;/p&gt;
+&lt;p&gt;This is the workhorse of many of the other *apply functions. Peel back their code and you will often find lapply underneath.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;x &amp;lt;- list(a = 1, b = 1:3, c = 10:100)
+x&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $a
+## [1] 1
+## 
+## $b
+## [1] 1 2 3
+## 
+## $c
+##  [1]  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26
+## [18]  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43
+## [35]  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60
+## [52]  61  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77
+## [69]  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94
+## [86]  95  96  97  98  99 100&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lapply(x, FUN = length)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $a
+## [1] 1
+## 
+## $b
+## [1] 3
+## 
+## $c
+## [1] 91&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lapply(x, FUN = sum)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $a
+## [1] 1
+## 
+## $b
+## [1] 6
+## 
+## $c
+## [1] 5005&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sapply&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;3. &lt;em&gt;sapply&lt;/em&gt;&lt;/h1&gt;
+&lt;p&gt;When you want to apply a function to each element of a list in turn, but you want a &lt;strong&gt;vector&lt;/strong&gt; back, rather than a list.&lt;/p&gt;
+&lt;p&gt;If you find yourself typing `&lt;code&gt;unlist(lapply(...))&lt;/code&gt;, stop and consider sapply.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;x &amp;lt;- list(a = 1, b = 1:3, c = 10:100)
+x&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $a
+## [1] 1
+## 
+## $b
+## [1] 1 2 3
+## 
+## $c
+##  [1]  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26
+## [18]  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43
+## [35]  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60
+## [52]  61  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77
+## [69]  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94
+## [86]  95  96  97  98  99 100&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Compare with above; a neamed vector, not a list&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sapply(x, FUN = length)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  a  b  c 
+##  1  3 91&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sapply(x, FUN = sum)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    a    b    c 
+##    1    6 5005&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In more advanced uses of sapply it will attempt to coerce the result to a multi-dimensional array, if appropriate. For example, if our function returns vectors of the same length, sapply will use them as columns of a matrix:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sapply(1:5, function(x) rnorm(3, x))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##          [,1]     [,2]     [,3]     [,4]     [,5]
+## [1,] 1.005306 1.931241 3.683644 5.469603 4.826871
+## [2,] 1.003778 1.843137 2.778917 4.275839 5.076042
+## [3,] 1.816856 2.102142 2.084459 5.206027 4.521556&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If our function returns a 2 dimensional matrix, sapply will do essentially the same thing, treating each returned matrix as a single long vector:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sapply(1:5, function(x) matrix(x, 2, 2))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    2    3    4    5
+## [2,]    1    2    3    4    5
+## [3,]    1    2    3    4    5
+## [4,]    1    2    3    4    5&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Unless we specify &lt;code&gt;simplify = &amp;quot;array&amp;quot;&lt;/code&gt;, in which case it will use the individual matrices to build a multi-dimensional array:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sapply(1:5, function(x) matrix(x, 2, 2), simplify = &amp;quot;array&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## , , 1
+## 
+##      [,1] [,2]
+## [1,]    1    1
+## [2,]    1    1
+## 
+## , , 2
+## 
+##      [,1] [,2]
+## [1,]    2    2
+## [2,]    2    2
+## 
+## , , 3
+## 
+##      [,1] [,2]
+## [1,]    3    3
+## [2,]    3    3
+## 
+## , , 4
+## 
+##      [,1] [,2]
+## [1,]    4    4
+## [2,]    4    4
+## 
+## , , 5
+## 
+##      [,1] [,2]
+## [1,]    5    5
+## [2,]    5    5&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Each of these behaviors is of course contingent on our function returning vectors or matrices of the same length or dimension.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;vapply&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;4. &lt;em&gt;vapply&lt;/em&gt;&lt;/h1&gt;
+&lt;p&gt;When you want to use &lt;em&gt;sapply&lt;/em&gt; but perhaps need to squeeze some more speed out of your code.&lt;/p&gt;
+&lt;p&gt;For vapply, you basically give R an example of what sort of thing your function will return, which can save some time coercing returned values to fit in a single atomic vector.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;x &amp;lt;- list(a = 1, b = 1:3, c = 10:100)
+x&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $a
+## [1] 1
+## 
+## $b
+## [1] 1 2 3
+## 
+## $c
+##  [1]  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26
+## [18]  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43
+## [35]  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60
+## [52]  61  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77
+## [69]  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94
+## [86]  95  96  97  98  99 100&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note that since the advantage here is mainly speed, this example is only for illustration. We’re telling R that everything returned by length() should be an integer of length 1.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;vapply(x, FUN = length, FUN.VALUE = 0L)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  a  b  c 
+##  1  3 91&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;mapply&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;5. &lt;em&gt;mapply&lt;/em&gt;&lt;/h1&gt;
+&lt;p&gt;For when you have several data structures (e.g. vectors, lists) and you want to apply a function to the 1st elements of each, and then the 2nd elements of each, etc., coercing the result to a vector/array as in sapply.&lt;/p&gt;
+&lt;p&gt;This is multivariate in the sense that your function must accept multiple arguments.&lt;/p&gt;
+&lt;p&gt;Sums the 1st elements, the 2nd elements, etc.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mapply(sum, 1:5, 1:5, 1:5)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1]  3  6  9 12 15&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To do rep(1, 4), rep(2, 3), etc.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mapply(rep, 1:4, 4:1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [[1]]
+## [1] 1 1 1 1
+## 
+## [[2]]
+## [1] 2 2 2
+## 
+## [[3]]
+## [1] 3 3
+## 
+## [[4]]
+## [1] 4&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;map&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;6. &lt;em&gt;Map&lt;/em&gt;&lt;/h1&gt;
+&lt;p&gt;A wrapper to &lt;code&gt;mapply&lt;/code&gt; with &lt;code&gt;SIMPLIFY = FALSE&lt;/code&gt;, so it is guaranteed to return a list.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Map(sum, 1:5, 1:5, 1:5)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [[1]]
+## [1] 3
+## 
+## [[2]]
+## [1] 6
+## 
+## [[3]]
+## [1] 9
+## 
+## [[4]]
+## [1] 12
+## 
+## [[5]]
+## [1] 15&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;rapply&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;7. &lt;em&gt;rapply&lt;/em&gt;&lt;/h1&gt;
+&lt;p&gt;For when you want to apply a function to each element of a &lt;strong&gt;nested list&lt;/strong&gt; structure, recursively.&lt;/p&gt;
+&lt;p&gt;To give you some idea of how uncommon rapply is, I forgot about it when first posting this answer! Obviously, I’m sure many people use it, but YMMV. rapply is best illustrated with a user-defined function to apply:&lt;/p&gt;
+&lt;p&gt;Define a nested list stucture&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;l &amp;lt;- list(a = list(a1 = &amp;quot;Boo&amp;quot;, b1 = 2, c1 = &amp;quot;Eeek&amp;quot;),
+          b = 3, c = &amp;quot;Yikes&amp;quot;,
+          d = list(a2 = 1, b2 = list(a3 = &amp;quot;Hey&amp;quot;, b3 = 5)))
+l&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $a
+## $a$a1
+## [1] &amp;quot;Boo&amp;quot;
+## 
+## $a$b1
+## [1] 2
+## 
+## $a$c1
+## [1] &amp;quot;Eeek&amp;quot;
+## 
+## 
+## $b
+## [1] 3
+## 
+## $c
+## [1] &amp;quot;Yikes&amp;quot;
+## 
+## $d
+## $d$a2
+## [1] 1
+## 
+## $d$b2
+## $d$b2$a3
+## [1] &amp;quot;Hey&amp;quot;
+## 
+## $d$b2$b3
+## [1] 5&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Define a function. note to append ! to string, otherwise increment&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;myFun &amp;lt;- function(x){
+    if (is.character(x)){
+    return(paste(x,&amp;quot;!&amp;quot;,sep=&amp;quot;&amp;quot;))
+    }
+    else{
+    return(x + 1)
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Result is named vector, coerced to character&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rapply(l, myFun)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     a.a1     a.b1     a.c1        b        c     d.a2  d.b2.a3  d.b2.b3 
+##   &amp;quot;Boo!&amp;quot;      &amp;quot;3&amp;quot;  &amp;quot;Eeek!&amp;quot;      &amp;quot;4&amp;quot; &amp;quot;Yikes!&amp;quot;      &amp;quot;2&amp;quot;   &amp;quot;Hey!&amp;quot;      &amp;quot;6&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Result is a nested list like l, with values altered&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rapply(l, myFun, how = &amp;quot;replace&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $a
+## $a$a1
+## [1] &amp;quot;Boo!&amp;quot;
+## 
+## $a$b1
+## [1] 3
+## 
+## $a$c1
+## [1] &amp;quot;Eeek!&amp;quot;
+## 
+## 
+## $b
+## [1] 4
+## 
+## $c
+## [1] &amp;quot;Yikes!&amp;quot;
+## 
+## $d
+## $d$a2
+## [1] 2
+## 
+## $d$b2
+## $d$b2$a3
+## [1] &amp;quot;Hey!&amp;quot;
+## 
+## $d$b2$b3
+## [1] 6&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;tapply&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;8. &lt;em&gt;tapply&lt;/em&gt;&lt;/h1&gt;
+&lt;p&gt;For when you want to apply a function to subsets of a vector and the &lt;strong&gt;subsets&lt;/strong&gt; are defined by some other vector, usually a factor.&lt;/p&gt;
+&lt;p&gt;The black sheep of the *apply family, of sorts. The help file’s use of the phrase “ragged array” can be a bit confusing, but it is actually quite simple.&lt;/p&gt;
+&lt;p&gt;Define a vector&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;x &amp;lt;- 1:20
+x&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A factor (of the same length!) defining groups:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;y &amp;lt;- factor(rep(letters[1:5], each = 4))
+y&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] a a a a b b b b c c c c d d d d e e e e
+## Levels: a b c d e&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Add up the values in &lt;code&gt;x&lt;/code&gt; within each subgroup defined by &lt;code&gt;y&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tapply(x, y, sum)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  a  b  c  d  e 
+## 10 26 42 58 74&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;More complex examples can be handled where the subgroups are defined by the unique combinations of a list of several factors. &lt;code&gt;tapply&lt;/code&gt; is similar in spirit to the split-apply-combine functions that are common in R (&lt;code&gt;aggregate&lt;/code&gt;, &lt;code&gt;by&lt;/code&gt;, &lt;code&gt;ave&lt;/code&gt;, &lt;code&gt;ddply&lt;/code&gt;, etc.) Hence its black sheep status.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Advanced R</title>
+      <link>/english/usingr/advanced/</link>
+      <pubDate>Wed, 15 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/english/usingr/advanced/</guid>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+&lt;p&gt;This is my book reading note from Hadley Wickham’s &lt;em&gt;&lt;a href=&#34;http://adv-r.had.co.nz&#34;&gt;Advanded R&lt;/a&gt;&lt;/em&gt; book&lt;/p&gt;
+&lt;div id=&#34;function&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;1.Function&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;f &amp;lt;- function(x) x^2
+f
+
+formals(f) # The code inside the function
+body(f) # The list of arguments which controls how you can call the function
+environment(f) # the `map&amp;#39; of the location of the function&amp;#39;s variables&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## function(x) x^2
+## $x
+## 
+## 
+## x^2
+## &amp;lt;environment: R_GlobalEnv&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>reshape</title>
+      <link>/english/usingr/</link>
+      <pubDate>Sun, 12 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/english/usingr/</guid>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+&lt;div id=&#34;reshape-a-data-frame-from-wide-format-to-long-format&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1. &lt;em&gt;reshape&lt;/em&gt; a data frame from wide format to long format&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;d1 &amp;lt;- data.frame(subject = c(&amp;quot;id1&amp;quot;, &amp;quot;id2&amp;quot;),
+x0 = c(&amp;quot;male&amp;quot;, &amp;quot;female&amp;quot;),
+x1_2000 = 1:2,
+x1_2005 = 5:6,
+x2_2000 = 1:2,
+x2_2005 = 5:6
+)
+
+d1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   subject     x0 x1_2000 x1_2005 x2_2000 x2_2005
+## 1     id1   male       1       5       1       5
+## 2     id2 female       2       6       2       6&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rs1 &amp;lt;- reshape(d1, dir = &amp;quot;long&amp;quot;, varying = 3:6, sep = &amp;quot;_&amp;quot;)
+rs1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        subject     x0 time x1 x2 id
+## 1.2000     id1   male 2000  1  1  1
+## 2.2000     id2 female 2000  2  2  2
+## 1.2005     id1   male 2005  5  5  1
+## 2.2005     id2 female 2005  6  6  2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;d2 &amp;lt;- data.frame(subject = c(&amp;quot;id1&amp;quot;, &amp;quot;id2&amp;quot;),
+x0 = c(&amp;quot;male&amp;quot;, &amp;quot;female&amp;quot;),
+sample_1_2000 = 1:2,
+sample_1_2005 = 5:6,
+sample_2_2000 = 1:2,
+sample_2_2005 = 5:6
+)
+
+d2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   subject     x0 sample_1_2000 sample_1_2005 sample_2_2000 sample_2_2005
+## 1     id1   male             1             5             1             5
+## 2     id2 female             2             6             2             6&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rs2 &amp;lt;- reshape(d2, dir = &amp;quot;long&amp;quot;, varying = 3:6,
+              split = list(regexp = &amp;quot;_20&amp;quot;, include = TRUE))
+rs2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        subject     x0 time sample_1_ sample_2_ id
+## 1.2000     id1   male 2000         1         1  1
+## 2.2000     id2 female 2000         2         2  2
+## 1.2005     id1   male 2005         5         5  1
+## 2.2005     id2 female 2005         6         6  2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rs3 &amp;lt;- reshape(setNames(d2, sub(&amp;quot;sample_&amp;quot;, &amp;quot;&amp;quot;, names(d2))),
+               dir = &amp;quot;long&amp;quot;, varying = 3:6, sep = &amp;quot;_&amp;quot;)
+rs3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        subject     x0 time 1 2 id
+## 1.2000     id1   male 2000 1 1  1
+## 2.2000     id2 female 2000 2 2  2
+## 1.2005     id1   male 2005 5 5  1
+## 2.2005     id2 female 2005 6 6  2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

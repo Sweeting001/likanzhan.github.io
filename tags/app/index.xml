@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>App on Likan | 侃侃迩行</title>
+    <link>/tags/app/index.xml</link>
+    <description>Recent content in App on Likan | 侃侃迩行</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="/tags/app/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>reshape</title>
+      <link>/english/usingr/</link>
+      <pubDate>Sun, 12 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/english/usingr/</guid>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+&lt;div id=&#34;reshape-a-data-frame-from-wide-format-to-long-format&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1. &lt;em&gt;reshape&lt;/em&gt; a data frame from wide format to long format&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;d1 &amp;lt;- data.frame(subject = c(&amp;quot;id1&amp;quot;, &amp;quot;id2&amp;quot;),
+x0 = c(&amp;quot;male&amp;quot;, &amp;quot;female&amp;quot;),
+x1_2000 = 1:2,
+x1_2005 = 5:6,
+x2_2000 = 1:2,
+x2_2005 = 5:6
+)
+
+d1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   subject     x0 x1_2000 x1_2005 x2_2000 x2_2005
+## 1     id1   male       1       5       1       5
+## 2     id2 female       2       6       2       6&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rs1 &amp;lt;- reshape(d1, dir = &amp;quot;long&amp;quot;, varying = 3:6, sep = &amp;quot;_&amp;quot;)
+rs1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        subject     x0 time x1 x2 id
+## 1.2000     id1   male 2000  1  1  1
+## 2.2000     id2 female 2000  2  2  2
+## 1.2005     id1   male 2005  5  5  1
+## 2.2005     id2 female 2005  6  6  2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;d2 &amp;lt;- data.frame(subject = c(&amp;quot;id1&amp;quot;, &amp;quot;id2&amp;quot;),
+x0 = c(&amp;quot;male&amp;quot;, &amp;quot;female&amp;quot;),
+sample_1_2000 = 1:2,
+sample_1_2005 = 5:6,
+sample_2_2000 = 1:2,
+sample_2_2005 = 5:6
+)
+
+d2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   subject     x0 sample_1_2000 sample_1_2005 sample_2_2000 sample_2_2005
+## 1     id1   male             1             5             1             5
+## 2     id2 female             2             6             2             6&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rs2 &amp;lt;- reshape(d2, dir = &amp;quot;long&amp;quot;, varying = 3:6,
+              split = list(regexp = &amp;quot;_20&amp;quot;, include = TRUE))
+rs2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        subject     x0 time sample_1_ sample_2_ id
+## 1.2000     id1   male 2000         1         1  1
+## 2.2000     id2 female 2000         2         2  2
+## 1.2005     id1   male 2005         5         5  1
+## 2.2005     id2 female 2005         6         6  2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rs3 &amp;lt;- reshape(setNames(d2, sub(&amp;quot;sample_&amp;quot;, &amp;quot;&amp;quot;, names(d2))),
+               dir = &amp;quot;long&amp;quot;, varying = 3:6, sep = &amp;quot;_&amp;quot;)
+rs3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        subject     x0 time 1 2 id
+## 1.2000     id1   male 2000 1 1  1
+## 2.2000     id2 female 2000 2 2  2
+## 1.2005     id1   male 2005 5 5  1
+## 2.2005     id2 female 2005 6 6  2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
