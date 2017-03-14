@@ -153,9 +153,9 @@ x&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In more advanced uses of sapply it will attempt to coerce the result to a multi-dimensional array, if appropriate. For example, if our function returns vectors of the same length, sapply will use them as columns of a matrix:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sapply(1:5, function(x) rnorm(3, x))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##            [,1]     [,2]     [,3]     [,4]     [,5]
-## [1,] -0.1846536 1.245992 2.668802 2.004240 2.717657
-## [2,]  2.7930456 0.752958 2.254782 3.617544 5.520041
-## [3,]  1.1685775 2.240592 4.548462 3.991380 3.698332&lt;/code&gt;&lt;/pre&gt;
+## [1,]  0.2496190 4.114341 3.379981 5.248571 5.822242
+## [2,]  2.2930116 1.190925 3.223621 3.491504 6.008779
+## [3,] -0.8031877 2.051835 2.562092 3.818486 3.400949&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;If our function returns a 2 dimensional matrix, sapply will do essentially the same thing, treating each returned matrix as a single long vector:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sapply(1:5, function(x) matrix(x, 2, 2))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##      [,1] [,2] [,3] [,4] [,5]

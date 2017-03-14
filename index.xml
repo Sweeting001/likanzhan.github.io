@@ -10,6 +10,259 @@
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Chapter 02. Frequency Distributions</title>
+      <link>/stat_behav_sci/2017-03-14-ch02/</link>
+      <pubDate>Tue, 14 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/stat_behav_sci/2017-03-14-ch02/</guid>
+      <description>&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#figure-2.1&#34;&gt;1. Figure 2.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#figure-2.2&#34;&gt;2. Figure 2.2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#figure-2.3&#34;&gt;3. Figure 2.3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#figure-2.4&#34;&gt;4. Figure 2.4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#figure-2.5&#34;&gt;5. Figure 2.5&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#figure-2.7&#34;&gt;6. Figure 2.7&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#figure-2.9&#34;&gt;7. Figure 2.9&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#figure-2.10&#34;&gt;8. Figure 2.10&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;figure-2.1&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;1. Figure 2.1&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Tattoo and Attractiveness rating&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Tattoo &amp;lt;- c(1, 2, 4, 3,
+            2, 2, 1, 3,
+            2, 5, 4, 3)
+Notatt &amp;lt;- c(2, 4, 4, 3,
+            5, 4, 2, 4,
+            4, 5, 3, 3)&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Figure 2.1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow = c(1, 2))
+hist(Tattoo,
+     breaks = 0.5:6.5,
+     col = &amp;quot;#fce6bf&amp;quot;,
+     border = &amp;quot;#b78135&amp;quot;,
+     xlim = c(0, 6),
+     ylim = c(0, 5),
+     yaxs = &amp;quot;i&amp;quot;,
+     xaxs = &amp;quot;i&amp;quot;,
+     ylab = &amp;quot;Frequncy&amp;quot;,
+     xlab = &amp;quot;Attractiveness rating&amp;quot;,
+     main = &amp;quot;Photograph with visible tattoo&amp;quot;)
+segments(c(0.5, 0.5, 1.5),
+         c(1,   2,   3),
+         c(5.5, 4.5, 3.5),
+         c(1,   2,   3),
+         col = &amp;quot;#b78135&amp;quot;
+)
+hist(Notatt,
+     breaks = 0.5:6.5,
+     col = &amp;quot;#fce6bf&amp;quot;,
+     border = &amp;quot;#b78135&amp;quot;,
+     xlim = c(0, 6),
+     ylim = c(0, 5),
+     yaxs = &amp;quot;i&amp;quot;,
+     xaxs = &amp;quot;i&amp;quot;,
+     ylab = &amp;quot;Frequency&amp;quot;,
+     xlab = &amp;quot;Attractiveness rating&amp;quot;,
+     main = &amp;quot;Photograph with no visible tattoo&amp;quot;)
+segments(c(1.5, 1.5, 2.5, 3.5),
+         c(1,   2,   3,   4  ),
+         c(5.5, 5.5, 4.5, 4.5),
+         c(1,   2,   3,   4),
+         col = &amp;quot;#b78135&amp;quot;
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./stat_behav_sci/2017-03-14-ch02_files/figure-html/Figure_02_01-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;figure-2.2&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;2. Figure 2.2&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data &amp;lt;- c(5, 5, 4, 4, 4, 3, 3, 3, 3, 2, 2, 1)
+hist(data,
+     xlim = c(0, 6),
+     breaks = 0.5:5.5,
+     col = &amp;quot;#00acaa&amp;quot;,
+     yaxs = &amp;quot;i&amp;quot;,
+     xaxs = &amp;quot;i&amp;quot;,
+     border = &amp;quot;white&amp;quot;,
+     ylab = &amp;quot;Frequency&amp;quot;,
+     xlab = &amp;quot;Quiz scores (number corrected)&amp;quot;,
+     main = NULL,
+     font.lab = 2,
+     axes = FALSE
+)
+axis(1)
+axis(2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./stat_behav_sci/2017-03-14-ch02_files/figure-html/Figure_02_02-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;figure-2.3&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;3. Figure 2.3&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;height &amp;lt;- c(44.5, 42.2, 42.8, 40.1, 40.2, 40.3, 40.4, 38.4,
+            38.5, 38.6, 38.7, 38.8, 38.9, 36.6, 36.8, 34.2,
+            34.3, 34.5, 33, 32.1, 32.2, 32.3, 30.1, 30.5
+)
+heightc &amp;lt;- cut(height,
+           breaks = seq(30, 46, by=2), right = FALSE
+)
+
+hist(height,
+    axes = FALSE,
+    col = &amp;quot;#00acaa&amp;quot;,
+    border = &amp;quot;white&amp;quot;,
+    xlab = NULL,
+    main = NULL,
+    font.lab = 2
+)
+axis(2)
+axis(1, at = seq(31, 45, by = 2),
+     labels = levels(heightc),
+     tick = FALSE,
+     padj = -2
+)
+abline(h = 0)
+mtext(&amp;quot;Children&amp;#39;s heights (in inches)&amp;quot;,
+      side = 1,
+      padj = 2
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./stat_behav_sci/2017-03-14-ch02_files/figure-html/Figure_02_03-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;figure-2.4&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;4. Figure 2.4&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;X = 1:7
+f = c(1, 3, 3, 4, 2, 1, 0)
+barplot(f, names.arg = X,
+        space = 0,
+        col = &amp;quot;#fce6bf&amp;quot;,
+        border = &amp;quot;#b78135&amp;quot;
+        )
+abline(h = 0)
+segments(c(0, 1, 1),
+         c(1, 2, 3),
+         c(6, 5, 4),
+         c(1, 2, 3),
+         col = &amp;quot;#b78135&amp;quot;,
+         lwd = 1.5
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./stat_behav_sci/2017-03-14-ch02_files/figure-html/Figure_02_04-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;figure-2.5&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;5. Figure 2.5&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dataa &amp;lt;- data.frame(X = 6:1,
+                    f = c(1, 2, 2, 4, 2, 1)
+)
+datan &amp;lt;- rbind(dataa, c(7, 0), c(0, 0))
+datan &amp;lt;- datan[order(datan[, &amp;quot;X&amp;quot;]), ]
+plot(f ~ X,
+     data = datan,
+     type = &amp;quot;l&amp;quot;,
+     lwd = 3,
+     col = &amp;quot;#cf232a&amp;quot;,
+     yaxs = &amp;quot;i&amp;quot;,
+     xaxs = &amp;quot;i&amp;quot;,
+     ylim = c(0, 5),
+     xlim = c(0, 7),
+     xlab =&amp;quot;Scores&amp;quot;,
+     ylab = &amp;quot;Frequency&amp;quot;
+)
+points(f ~ X,
+       data = datan,
+       lwd = 9,
+       pch = 19,
+       col = &amp;quot;#cf232a&amp;quot;
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./stat_behav_sci/2017-03-14-ch02_files/figure-html/Figure_02_05-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;figure-2.7&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;6. Figure 2.7&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;type = c(&amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;)
+Frequency = c(10, 5, 20)
+barplot(height = Frequency,
+       names.arg = type,
+       col = c(&amp;quot;#d5493a&amp;quot;, &amp;quot;#0bb0ae&amp;quot;, &amp;quot;#ee9c57&amp;quot;),
+       border = &amp;quot;white&amp;quot;,
+       xlab = &amp;quot;Personality style&amp;quot;,
+       ylab = &amp;quot;Frequency&amp;quot;)
+abline(h = 0)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./stat_behav_sci/2017-03-14-ch02_files/figure-html/Figure_02_07-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;figure-2.9&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;7. Figure 2.9&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mean = 100
+sd = 15
+x &amp;lt;- seq(mean - 4 * sd, mean + 4 * sd, by =  1)
+y &amp;lt;- dnorm(x, mean, sd)
+plot(x, y, type = &amp;quot;l&amp;quot;,
+     ylab = &amp;quot;Frequency&amp;quot;,
+     xlab = &amp;quot;IQ scores&amp;quot;,
+     col = &amp;quot;#cf232a&amp;quot;
+)
+polygon(c(60, x, 140),
+        c(0, y, 0),
+        col = &amp;quot;#f4cdba&amp;quot;,
+        border = &amp;quot;white&amp;quot;)
+lines(x, y,
+      type = &amp;quot;l&amp;quot;,
+      col = &amp;quot;#cf232a&amp;quot;,
+      lwd = 2
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./stat_behav_sci/2017-03-14-ch02_files/figure-html/Figure_02_09-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;figure-2.10&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;8. Figure 2.10&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Year = 2011:2014
+Homicides = c(42, 44, 47, 49)
+
+par(mar = c(4, 4, 1, 1))
+par(fig = c(0, 7, 0, 10)/10)
+barplot(Homicides,
+        Year,
+        space = 0,
+        names.arg = Year,
+        xlab = &amp;quot;Year&amp;quot;,
+        ylab = &amp;quot;Number of homicides&amp;quot;,
+        ylim = c(0, 50),
+        xpd = TRUE,
+        col = &amp;quot;#00acaa&amp;quot;,
+        border = &amp;quot;white&amp;quot;)
+abline(h = 0, lwd = 2)
+
+par(new = TRUE)
+par(fig = c(7, 10, 0, 10)/10)
+barplot(Homicides,
+        Year,
+        space = 0,
+        names.arg = gsub(&amp;quot;20&amp;quot;, &amp;quot;&amp;quot;, Year),
+        ylim = c(40, 50),
+        xpd = FALSE,
+        xlab = &amp;quot;Year&amp;quot;,
+        ylab = &amp;quot;Number of homicides&amp;quot;,
+        col = &amp;quot;#00acaa&amp;quot;,
+        border = &amp;quot;white&amp;quot;)
+abline(h = 40, lwd = 2) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./stat_behav_sci/2017-03-14-ch02_files/figure-html/Figure_02_10-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ch01</title>
+      <link>/2017/03/14/ch01/</link>
+      <pubDate>Tue, 14 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/03/14/ch01/</guid>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+
+</description>
+    </item>
+    
+    <item>
       <title>人脑中的行为主体感</title>
       <link>/chinese/2017-03-10-sense-of-agency-in-the-human-brain/</link>
       <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
@@ -134,7 +387,7 @@ fig0104t &amp;lt;- xtable(fig0104, digits = c(0, 0, 0, 1),
                    align = rep(&amp;quot;c&amp;quot;, ncol(fig0104) + 1))
 print(fig0104t, include.rownames = FALSE, type = &amp;#39;html&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;!-- html table generated in R 3.3.3 by xtable 1.8-2 package --&gt;
-&lt;!-- Mon Mar 13 13:38:01 2017 --&gt;
+&lt;!-- Tue Mar 14 23:23:15 2017 --&gt;
 &lt;table border=&#34;1&#34;&gt;
 &lt;tr&gt;
 &lt;th&gt;
@@ -1187,9 +1440,9 @@ x&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In more advanced uses of sapply it will attempt to coerce the result to a multi-dimensional array, if appropriate. For example, if our function returns vectors of the same length, sapply will use them as columns of a matrix:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sapply(1:5, function(x) rnorm(3, x))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##            [,1]     [,2]     [,3]     [,4]     [,5]
-## [1,] -0.1846536 1.245992 2.668802 2.004240 2.717657
-## [2,]  2.7930456 0.752958 2.254782 3.617544 5.520041
-## [3,]  1.1685775 2.240592 4.548462 3.991380 3.698332&lt;/code&gt;&lt;/pre&gt;
+## [1,]  0.2496190 4.114341 3.379981 5.248571 5.822242
+## [2,]  2.2930116 1.190925 3.223621 3.491504 6.008779
+## [3,] -0.8031877 2.051835 2.562092 3.818486 3.400949&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;If our function returns a 2 dimensional matrix, sapply will do essentially the same thing, treating each returned matrix as a single long vector:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sapply(1:5, function(x) matrix(x, 2, 2))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##      [,1] [,2] [,3] [,4] [,5]
@@ -1435,9 +1688,9 @@ print(corr)
 }
 
 xcor(1000, 0.5)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.03295629&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] -0.004398322&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;xcor(20, 0.5)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.2235179&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.1109662&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
@@ -1468,80 +1721,6 @@ environment(f) # the `map&amp;#39; of the location of the function&amp;#39;s var
 ## x^2
 ## &amp;lt;environment: R_GlobalEnv&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>reshape</title>
-      <link>/english/usingr/</link>
-      <pubDate>Sun, 12 Feb 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/english/usingr/</guid>
-      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
-&lt;!-- /BLOGDOWN-HEAD --&gt;
-
-&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
-&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
-&lt;div id=&#34;reshape-a-data-frame-from-wide-format-to-long-format&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;1. &lt;em&gt;reshape&lt;/em&gt; a data frame from wide format to long format&lt;/h3&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;d1 &amp;lt;- data.frame(subject = c(&amp;quot;id1&amp;quot;, &amp;quot;id2&amp;quot;),
-x0 = c(&amp;quot;male&amp;quot;, &amp;quot;female&amp;quot;),
-x1_2000 = 1:2,
-x1_2005 = 5:6,
-x2_2000 = 1:2,
-x2_2005 = 5:6
-)
-
-d1&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##   subject     x0 x1_2000 x1_2005 x2_2000 x2_2005
-## 1     id1   male       1       5       1       5
-## 2     id2 female       2       6       2       6&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rs1 &amp;lt;- reshape(d1, dir = &amp;quot;long&amp;quot;, varying = 3:6, sep = &amp;quot;_&amp;quot;)
-rs1&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##        subject     x0 time x1 x2 id
-## 1.2000     id1   male 2000  1  1  1
-## 2.2000     id2 female 2000  2  2  2
-## 1.2005     id1   male 2005  5  5  1
-## 2.2005     id2 female 2005  6  6  2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;d2 &amp;lt;- data.frame(subject = c(&amp;quot;id1&amp;quot;, &amp;quot;id2&amp;quot;),
-x0 = c(&amp;quot;male&amp;quot;, &amp;quot;female&amp;quot;),
-sample_1_2000 = 1:2,
-sample_1_2005 = 5:6,
-sample_2_2000 = 1:2,
-sample_2_2005 = 5:6
-)
-
-d2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##   subject     x0 sample_1_2000 sample_1_2005 sample_2_2000 sample_2_2005
-## 1     id1   male             1             5             1             5
-## 2     id2 female             2             6             2             6&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rs2 &amp;lt;- reshape(d2, dir = &amp;quot;long&amp;quot;, varying = 3:6,
-              split = list(regexp = &amp;quot;_20&amp;quot;, include = TRUE))
-rs2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##        subject     x0 time sample_1_ sample_2_ id
-## 1.2000     id1   male 2000         1         1  1
-## 2.2000     id2 female 2000         2         2  2
-## 1.2005     id1   male 2005         5         5  1
-## 2.2005     id2 female 2005         6         6  2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rs3 &amp;lt;- reshape(setNames(d2, sub(&amp;quot;sample_&amp;quot;, &amp;quot;&amp;quot;, names(d2))),
-               dir = &amp;quot;long&amp;quot;, varying = 3:6, sep = &amp;quot;_&amp;quot;)
-rs3&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##        subject     x0 time 1 2 id
-## 1.2000     id1   male 2000 1 1  1
-## 2.2000     id2 female 2000 2 2  2
-## 1.2005     id1   male 2005 5 5  1
-## 2.2005     id2 female 2005 6 6  2&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>/about/about/</link>
-      <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
-      
-      <guid>/about/about/</guid>
-      <description>&lt;p&gt;This is my personal website. This web is only for personal use.&lt;/p&gt;
 </description>
     </item>
     
