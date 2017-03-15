@@ -294,7 +294,6 @@ Homicides = c(42, 44, 47, 49)
 par(mar = c(4, 4, 1, 1))
 par(fig = c(0, 7, 0, 10)/10)
 barplot(Homicides,
-        Year,
         space = 0,
         names.arg = Year,
         xlab = &quot;Year&quot;,
@@ -308,7 +307,6 @@ abline(h = 0, lwd = 2)
 par(new = TRUE)
 par(fig = c(7, 10, 0, 10)/10)
 barplot(Homicides,
-        Year,
         space = 0,
         names.arg = gsub(&quot;20&quot;, &quot;&quot;, Year),
         ylim = c(40, 50),
@@ -317,7 +315,7 @@ barplot(Homicides,
         ylab = &quot;Number of homicides&quot;,
         col = &quot;#00acaa&quot;,
         border = &quot;white&quot;)
-abline(h = 40, lwd = 2) </code></pre>
+abline(h = 40, lwd = 2)</code></pre>
 <p><img src="../../stat_behav_sci/2017-03-14-ch02_files/figure-html/Figure_02_10-1.png" width="1152" /></p>
 </div>
 
